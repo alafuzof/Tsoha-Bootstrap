@@ -1,9 +1,22 @@
 # Tietokantasovelluksen esittelysivu
 
-Yleisiä linkkejä:
+## Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://alafuzof.users.cs.helsinki.fi/animal/)
 * [Linkki dokumentaatiooni](https://github.com/alafuzof/elainkoekirjanpito/blob/master/doc/dokumentaatio.pdf)
+
+## Suunnitellut sivut
+
+Nämä ovat staattisia mallisivuja. Loppupalautuksessa ainastaan kirjautumissivu on näkyvillä, kunnes käyttäjä on kirjautunut. Sivut on esitetty sellaisen käyttäjän näkökulmasta, jolla on oikeus selata, lisätä, muokata tai poistaa mitä tahansa tietoja.
+
+* [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
+* [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
+* [Tarkastele käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
+* [Muokkaa käyttäjää](https://alafuzof.users.cs.helsinki.fi/animal/user/1/edit)
+* [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
+* [Muokkaa lisenssiä](https://alafuzof.users.cs.helsinki.fi/animal/licence/1/edit)
+* [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
+* [Muokaa koetta](https://alafuzof.users.cs.helsinki.fi/animal/experiment/1/edit)
 
 ## Työn aihe
 
