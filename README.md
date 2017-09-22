@@ -11,12 +11,19 @@ Nämä ovat staattisia mallisivuja. Loppupalautuksessa ainastaan kirjautumissivu
 
 * [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
 * [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
-* [Tarkastele käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
 * [Muokkaa käyttäjää](https://alafuzof.users.cs.helsinki.fi/animal/user/1/edit)
 * [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
 * [Muokkaa lisenssiä](https://alafuzof.users.cs.helsinki.fi/animal/licence/1/edit)
 * [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
 * [Muokaa koetta](https://alafuzof.users.cs.helsinki.fi/animal/experiment/1/edit)
+
+## Toteutetut sivut
+
+Huom. käyttäjille ei luultavasti tule "esittelysivuja", koska sellaisia ei tarvita sovelluksen käyttöön. Käyttäjän "muokkaussivun" voi ajatella vastaavan
+"esittelysivua".
+
+* [Tarkastele käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
+* [Lisää käyttäjä](https://alafuzof.users.cs.helsinki.fi/animal/user/new)
 
 ## Työn aihe
 
