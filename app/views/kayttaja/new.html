@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Lisää käyttäjä</h1>
+
+  <form method="post" action="{{base_path}}/user">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="status" checked>
+        Aktiivinen
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Tunnus</label>
+      <input class="form-control" name="tunnus" value="" type="text">
+    </div>
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" name="salasana" value="" type="password">
+    </div>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input class="form-control" name="nimi" value="" type="text">
+    </div>
+    <div class="form-group">
+      <label>Sähköposti</label>
+      <input class="form-control" name="email" value="" type="email">
+    </div>
+    <div class="form-group">
+      <label for="rights">Oikeudet</label>
+      <select class="form-control" name="oikeudet" id="rights">
+        <option value="tutkija">Tutkija</option>
+        <option value="lupavastaava">Lupavastaava</option>
+        <option value="yllapitaja">Ylläpitäjä</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

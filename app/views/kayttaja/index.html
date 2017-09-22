@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Käyttäjien hallintasivu</h1>
+
+
+  {% if message %}
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+  {% endif %}
+
+  <p>
+    <a href="{{base_path}}/user/new" class="btn btn-success">Lisää käyttäjä</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tunnus</th>
+        <th>Nimi</th>
+        <th>Sähköposti</th>
+        <th>Oikeudet</th>
+        <th>Status</th>
+        <th>Lisäyspäivä</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for kayttaja in kayttajat %}
+        <tr>
+          <td><a href="{{base_path}}/user/{{kayttaja.id}}">{{kayttaja.tunnus}}</td>
+          <td>{{kayttaja.nimi}}</td>
+          <td>{{kayttaja.email}}</td>
+          <td>{{kayttaja.oikeudet}}</td>
+          <td>
+            {% if kayttaja.status %}
+              <label class="label label-success">OK
+            {% else %}
+              <label class="label label-danger">Pois käytöstä
+            {% endif %}
+            </label>
+          </td>
+          <td>{{kayttaja.lisayspvm}}</td>
+          <td>
+            <a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.id}}">Muokkaa</a>
+            <a class="btn btn-danger btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/remove">Poista</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

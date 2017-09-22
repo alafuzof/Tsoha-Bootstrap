@@ -13,7 +13,15 @@
   });
 
   $routes->get('/user', function() {
-    HelloWorldController::user_list();
+    KayttajaController::index();
+  });
+
+  $routes->post('/user', function() {
+    KayttajaController::store();
+  });
+
+  $routes->get('/user/new', function() {
+    KayttajaController::create();
   });
 
   $routes->get('/user/1/edit', function() {
