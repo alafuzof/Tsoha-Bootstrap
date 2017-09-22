@@ -10,7 +10,12 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      //View::make('helloworld.html');
+      $yrmi = Kayttaja::find(1);
+      $kayttajat = Kayttaja::all();
+      // Kint-luokan dump-metodi tulostaa muuttujan arvon
+      Kint::dump($yrmi);
+      Kint::dump($kayttajat);
     }
 
     public static function login(){
