@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa käyttäjän Bella Biologi tietoja</h1>
+
+  <form>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" checked>
+        Aktiivinen
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Tunnus</label>
+      <input class="form-control" value="bella" type="text">
+    </div>
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" value="" type="password">
+    </div>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input class="form-control" value="Bella Biologi" type="text">
+    </div>
+    <div class="form-group">
+      <label>Sähköposti</label>
+      <input class="form-control" value="bella.biologi@yliopisto.fi" type="email">
+    </div>
+    <div class="form-group">
+      <label for="rights">Oikeudet</label>
+      <select class="form-control" id="rights">
+        <option>Tutkija</option>
+        <option>Lupavastaava</option>
+        <option>Ylläpitäjä</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

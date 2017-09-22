@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa lisenssin ESAVI-12345 tietoja</h1>
+
+  <form>
+
+    <div class="form-group">
+      <label>Tunnus</label>
+      <input class="form-control" value="ESAVI-3251" type="text">
+    </div>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input class="form-control" value="Rottien levitointitutkimus" type="text">
+    </div>
+    <div class="form-group">
+      <label for="responsible">Vastaava</label>
+      <select class="form-control" id="responsible">
+        <option>Linda Lupavastaava</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Myönnetty</label>
+      <input class="form-control" value="2017-06-01" type="text">
+    </div>
+    <div class="form-group">
+      <label>Päättyy</label>
+      <input class="form-control" value="2019-06-01" type="text">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

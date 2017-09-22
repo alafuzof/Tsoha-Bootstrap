@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Eläinkoelisenssit</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lisää lisenssi</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tunnus</th>
+        <th>Nimi</th>
+        <th>Vastaava</th>
+        <th>Myönnetty</th>
+        <th>Päättyy</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan käyttäjät tähän -->
+      <tr>
+        <td><a href="#">ESAVI-12345</a></td>
+        <td>Rottien levitointitutkimus</td>
+        <td><a href="#">Linda Lupavastaava</a></td>
+        <td>2017-06-01</td>
+        <td>2019-06-01 <label class="label label-success">Voimassa</label></td>
+        <th>
+          <a class="btn btn-default btn-sm" href="#">Muokkaa</a>
+          <a class="btn btn-danger btn-sm" href="#">Poista</a>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

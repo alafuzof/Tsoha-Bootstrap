@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa kokeen tietoja</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Päivämäärä</label>
+      <input class="form-control" value="2017-09-15" type="text">
+    </div>
+    <div class="form-group">
+      <label for="users">Käyttäjä(t)</label>
+      <select class="form-control" id="users" multiple>
+        <option selected>Bella Biologi</option>
+        <option selected>Linda Lupavastaava</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="licence">Lupa</label>
+      <select class="form-control" id="licence">
+        <option selected>ESAVI-12345</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="species">Eläinlaji</label>
+      <select class="form-control" id="species">
+        <option selected>Rotta (rattus norvegicus)</option>
+        <option>Hiiri (mus musculus)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="rights">Lukumäärä</label>
+      <input class="form-control" value="3" type="number">
+    </div>
+    <div class="form-group">
+      <label for="comments">Lisähuomiot</label>
+      <textarea class="form-control" value="Levitointi onnistunut!" id="comments"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}
