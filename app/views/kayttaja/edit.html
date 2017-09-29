@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{otsikko}}</h1>
+
+  {% if virheet %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for virhe in virheet %}
+        <li>{{virhe}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post" action="{{base_path}}/user/{{kayttaja.id}}/{{kohde}}">
+    <input type="hidden" name="id" value="{{kayttaja.id}}" />
+    <div class="form-group">
+      <label>Aktiivinen</label>
+      <input class="form-control" name="status" value="1" type="checkbox" checked />
+    </div>
+    <div class="form-group">
+      <label>Tunnus</label>
+      <input class="form-control" name="tunnus" value="{{kayttaja.tunnus}}" type="text" />
+    </div>
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" name="salasana" value="{{kayttaja.salasana}}" type="password" />
+    </div>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input class="form-control" name="nimi" value="{{kayttaja.nimi}}" type="text" />
+    </div>
+    <div class="form-group">
+      <label>Sähköposti</label>
+      <input class="form-control" name="email" value="{{kayttaja.email}}" type="email" />
+    </div>
+    <div class="form-group">
+      <label for="rights">Oikeudet</label>
+      <select class="form-control" name="oikeudet" id="rights">
+        <option value="tutkija">Tutkija</option>
+        <option value="lupavastaava">Lupavastaava</option>
+        <option value="yllapitaja">Ylläpitäjä</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

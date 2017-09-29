@@ -5,11 +5,31 @@
     public static function index(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
    	  //View::make('home.html');
-      View::make('suunnitelmat/index.html');
+      View::make('home.html');
     }
 
     public static function sandbox(){
       // Testaa koodiasi täällä
+      $user = new Kayttaja(array('tunnus' => '',
+                             'salasana' => '1234567891011121314151617181920',
+                             'nimi' => null,
+                             'email' => 'abcdef',
+                             'oikeudet' => 'mitä sattuu',
+                             'status' => 'vihreä',
+                             'lisayspvm' => 'joulupäivä'));
+      $errors = $user->errors();
+      Kint::dump($errors);
+
+      $user = new Kayttaja(array('tunnus' => 'rane',
+                             'salasana' => '1234567891011',
+                             'nimi' => 'Rane',
+                             'email' => 'a@b.com',
+                             'oikeudet' => 'tutkija',
+                             'status' => '1',
+                             'lisayspvm' => '2017-09-09'));
+      $errors = $user->errors();
+      Kint::dump($errors);
+
       //View::make('helloworld.html');
       $yrmi = Kayttaja::find(1);
       $kayttajat = Kayttaja::all();

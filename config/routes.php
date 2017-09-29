@@ -9,23 +9,35 @@
   });
 
   $routes->get('/login', function() {
-    HelloWorldController::login();
+    KayttajaController::login();
+  });
+
+  $routes->post('/login', function() {
+    KayttajaController::handle_login();
   });
 
   $routes->get('/user', function() {
     KayttajaController::index();
   });
 
-  $routes->post('/user', function() {
-    KayttajaController::store();
-  });
-
   $routes->get('/user/new', function() {
     KayttajaController::create();
   });
 
-  $routes->get('/user/1/edit', function() {
-    HelloWorldController::user_edit();
+  $routes->post('/user/new', function() {
+    KayttajaController::store();
+  });
+
+  $routes->get('/user/:id/edit', function($id) {
+    KayttajaController::edit($id);
+  });
+
+  $routes->post('/user/:id/edit', function($id) {
+    KayttajaController::update($id);
+  });
+
+  $routes->get('/user/:id/delete', function($id) {
+    KayttajaController::destroy($id);
   });
 
   $routes->get('/licence', function() {

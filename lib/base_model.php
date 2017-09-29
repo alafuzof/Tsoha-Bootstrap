@@ -21,6 +21,34 @@
 
       foreach($this->validators as $validator){
         // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+        $errors = array_merge($errors, $this->{$validator}());
+      }
+
+      return $errors;
+    }
+
+    public function validate_string_length($string, $min_length=null, $max_length=null, $target=null) {
+      $errors = array();
+      if($target == null) {
+        $target = 'Merkkijono';
+      }
+      if($string == '' || $string == null) {
+        $errors[] = $target . ' ei voi olla tyhjä';
+      }
+      if($min_length != null && strlen($string)<$min_length) {
+        $errors[] = $target . ' on liian lyhyt (min. ' . $min_length . ' merkkiä)';
+      }
+      if($max_length != null && strlen($string)>$max_length) {
+        $errors[] = $target . ' on liian pitkä (max. ' . $max_length . ' merkkiä)';
+      }
+
+      return $errors;
+    }
+
+    function validate_date($date, $format= 'Y-m-d') {
+      $errors = array();
+      if($date != date($format, strtotime($date))) {
+        $errors[] = 'Päivämäärä on väärin muotoiltu';
       }
 
       return $errors;
