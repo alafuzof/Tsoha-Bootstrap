@@ -12,7 +12,11 @@
     </div>
   {% endif %}
 
-  <form method="post" action="{{base_path}}/user/{{kayttaja.id}}/{{kohde}}">
+  {% if kohde == 'new' %}
+    <form method="post" action="{{base_path}}/user/{{kohde}}">
+  {% else %}
+    <form method="post" action="{{base_path}}/user/{{kayttaja.id}}/{{kohde}}">
+  {% endif %}
     <input type="hidden" name="id" value="{{kayttaja.id}}" />
     <div class="form-group">
       <label>Aktiivinen</label>

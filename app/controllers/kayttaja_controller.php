@@ -2,16 +2,20 @@
 
   class KayttajaController extends BaseController {
     public static function index() {
+      BaseController::enforce_login();
       $kayttajat = Kayttaja::all();
       View::make('kayttaja/index.html', array('kayttajat' => $kayttajat));
     }
 
     public static function create() {
+      BaseController::enforce_login();
       View::make('kayttaja/edit.html', array('otsikko' => 'Luo uusi käyttäjä',
                                              'kohde' => 'new'));
     }
 
     public static function store() {
+      BaseController::enforce_login();
+
       $params = $_POST;
 
       $status = TRUE; //array_key_exists('status', $params); FIXME
@@ -38,6 +42,8 @@
     }
 
     public static function edit($id) {
+      BaseController::enforce_login();
+
       $kayttaja = Kayttaja::find($id);
       View::make('kayttaja/edit.html', array('kayttaja' => $kayttaja,
                                              'kohde' => 'edit',
@@ -45,6 +51,8 @@
     }
 
     public static function update($id) {
+      BaseController::enforce_login();
+
       $params = $_POST;
 
       $status = TRUE;//array_key_exists('status', $params); FIXME
@@ -72,6 +80,8 @@
     }
 
     public static function destroy($id) {
+      BaseController::enforce_login();
+
       $kayttaja = Kayttaja::find($id);
       $kayttaja->destroy();
 
@@ -94,6 +104,12 @@
 
         Redirect::to('/', array('viesti' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
       }
+    }
+
+    public static function handle_logout() {
+      unset($_SESSION['kayttaja']);
+
+      Redirect::to('/', array('viesti' => 'Olet kirjaunut ulos!'));
     }
 
   }

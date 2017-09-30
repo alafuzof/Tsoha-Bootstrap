@@ -7,7 +7,7 @@
 
     <title>
       {% block title %}
-        Tietokantasovellus
+        Eläinkoetilasto
       {% endblock %}
     </title>
 
@@ -33,13 +33,18 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
+          <a class="navbar-brand" href="{{base_path}}">Eläinkoetilasto</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}">Etusivu</a></li>
+            {% if user_logged_in %}
+              <li><a href="{{base_path}}/logout">Kirjaudu ulos ({{user_logged_in.tunnus}})</a></li>
+            {% else %}
+              <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

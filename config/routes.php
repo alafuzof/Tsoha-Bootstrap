@@ -16,6 +16,10 @@
     KayttajaController::handle_login();
   });
 
+  $routes->get('/logout', function() {
+    KayttajaController::handle_logout();
+  });
+
   $routes->get('/user', function() {
     KayttajaController::index();
   });

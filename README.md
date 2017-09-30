@@ -9,9 +9,8 @@
 
 Nämä ovat staattisia mallisivuja. Loppupalautuksessa ainastaan kirjautumissivu on näkyvillä, kunnes käyttäjä on kirjautunut. Sivut on esitetty sellaisen käyttäjän näkökulmasta, jolla on oikeus selata, lisätä, muokata tai poistaa mitä tahansa tietoja.
 
-* [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
+
 * [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
-* [Muokkaa käyttäjää](https://alafuzof.users.cs.helsinki.fi/animal/user/1/edit)
 * [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
 * [Muokkaa lisenssiä](https://alafuzof.users.cs.helsinki.fi/animal/licence/1/edit)
 * [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
@@ -19,11 +18,11 @@ Nämä ovat staattisia mallisivuja. Loppupalautuksessa ainastaan kirjautumissivu
 
 ## Toteutetut sivut
 
-Huom. käyttäjille ei luultavasti tule "esittelysivuja", koska sellaisia ei tarvita sovelluksen käyttöön. Käyttäjän "muokkaussivun" voi ajatella vastaavan
-"esittelysivua".
+Käyttäjäsivujen selailu on nyt esillä vain kirjautuneille käyttäjille. Voit kirjautua test/test (tunnus/salasana) testataksesi toiminnallisuutta.
 
-* [Tarkastele käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
-* [Lisää käyttäjä](https://alafuzof.users.cs.helsinki.fi/animal/user/new)
+* [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
+* [Tarkastele/muokkaa/lisää/poista käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
+
 
 ## Työn aihe
 
