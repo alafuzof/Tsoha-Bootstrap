@@ -97,6 +97,28 @@
       return NULL;
     }
 
+    public static function find_by_oikeudet($oikeudet) {
+      $query = DB::connection()->prepare('SELECT * FROM Kayttaja AS k WHERE k.oikeudet = :oikeudet;');
+      $query->execute(array('oikeudet' => $oikeudet));
+      $rows = $query->fetchAll();
+      $kayttajat = array();
+
+      foreach($rows as $row) {
+        $kayttajat[] = new Kayttaja(array(
+          'id' => $row['id'],
+          'tunnus' => $row['tunnus'],
+          'salasana' => $row['salasana'],
+          'nimi' => $row['nimi'],
+          'email' => $row['email'],
+          'oikeudet' => $row['oikeudet'],
+          'status' => $row['status'],
+          'lisayspvm' => $row['lisayspvm']
+        ));
+      }
+
+      return $kayttajat;
+    }
+
     public static function authenticate($tunnus, $salasana) {
       $query = DB::connection()->prepare(
         'SELECT * FROM Kayttaja WHERE tunnus = :tunnus AND salasana = :salasana LIMIT 1;');
