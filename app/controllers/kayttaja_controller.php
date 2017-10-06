@@ -48,7 +48,9 @@
       self::check_logged_in();
 
       $kayttaja = Kayttaja::find($id);
-      View::make('kayttaja/show.html', array('kayttaja' => $kayttaja));
+      $luvat = Elainkoelupa::find_by_kayttaja($kayttaja);
+      View::make('kayttaja/show.html', array('kayttaja' => $kayttaja,
+                                             'luvat' => $luvat));
     }
 
     public static function edit($id) {

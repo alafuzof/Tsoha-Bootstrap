@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-
-  <h1>{{kayttaja.nimi}}</h1>
   {% if user_logged_in.oikeudet == "yllapitaja" %}
     <a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/edit">Muokkaa</a>
     <a class="btn btn-danger btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/delete">Poista</a>
   {% endif %}
+  <h1>{{kayttaja.nimi}}</h1>
+  
   <ul>
     <li><strong>Sähköpostiosoite:</strong> {{kayttaja.email}}</li>
     {% if user_logged_in.oikeudet == "yllapitaja" %}
@@ -18,11 +18,16 @@
 
   {% if kayttaja.oikeudet != "tutkija" %}
     <h2>Luvat</h2>
-    <ul>
-      <li>Lupa 1</li>
-      <li>Lupa 2</li>
-      <li>Lupa 3</li>
-    </ul>
+    {% if luvat %}
+      <p>Kayttäjällä on vastuullaan {{luvat|length}} kpl eläinkoelupia</p>
+      <ul>
+        {% for lupa in luvat %}
+          <li><a href="{{base_path}}/licence/{{lupa.id}}">{{lupa.tunnus}}</a>: {{lupa.nimi}}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Kayttäjällä ei ole vastuullaan eläinkoelupia</p>
+    {% endif %}
   {% endif %}
 
   <h2>Kokeet</h2>
