@@ -21,7 +21,7 @@
     <tbody>
       {% for lupa in luvat %}
         <tr>
-          <td><a href="#">{{lupa.tunnus}}</a></td>
+          <td><a href="{{base_path}}/licence/{{lupa.id}}">{{lupa.tunnus}}</a></td>
           <td>{{lupa.nimi}}</td>
           <td><a href="{{base_path}}/user/{{lupa.vastuuhlo_id}}">{{lupa.vastuuhlo_nimi}}</a></td>
           <td>{{lupa.alkupvm}}</td>

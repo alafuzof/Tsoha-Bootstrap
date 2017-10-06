@@ -52,6 +52,10 @@
     ElainkoelupaController::index();
   });
 
+  $routes->get('licence/:id', function($id) {
+    ElainkoelupaController::show($id);
+  });
+
   $routes->get('/licence/1/edit', function() {
     HelloWorldController::licence_edit();
   });
