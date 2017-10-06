@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if user_logged_in.oikeudet == "lupavastaava" or user_logged_in.oikeudet == 'yllapitaja' %}
+    <a class="btn btn-default btn-sm" href="{{base_path}}/licence/{{lupa.id}}/edit">Muokkaa</a>
+    <a class="btn btn-danger btn-sm" href="{{base_path}}/licence/{{lupa.id}}/delete">Poista</a>
+  {% endif %}
+  <h1>{{lupa.nimi}}</h1>
+
+  <ul>
+    <li><strong>Tunnus:</strong> {{lupa.tunnus}}</li>
+    <li><strong>Alkupäivämäärä:</strong> {{lupa.alkupvm}}</li>
+    <li><strong>Päättymispäivämäärä:</strong> {{lupa.loppupvm}}</li>
+    <li><strong>Vastuuhenkilö:</strong> <a href="{{base_path}}/user/{{lupa.vastuuhlo_id}}">{{lupa.vastuuhlo_nimi}}</a></li>
+  </ul>
+
+  <h2>Kokeet</h2>
+  <ul>
+    <li>Koe 1</li>
+    <li>Koe 2</li>
+    <li>Koe 3</li>
+  </ul>
+
+{% endblock %}
