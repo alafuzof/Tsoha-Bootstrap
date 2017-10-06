@@ -44,8 +44,12 @@
     KayttajaController::destroy($id);
   });
 
+  $routes->get('/user/:id', function($id) {
+    KayttajaController::show($id);
+  });
+
   $routes->get('/licence', function() {
-    HelloWorldController::licence_list();
+    ElainkoelupaController::index();
   });
 
   $routes->get('/licence/1/edit', function() {
