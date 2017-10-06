@@ -2,13 +2,6 @@
 {% block content %}
   <h1>Käyttäjien hallintasivu</h1>
 
-
-  {% if message %}
-    <div class="alert alert-success">
-      {{message}}
-    </div>
-  {% endif %}
-
   <p>
     <a href="{{base_path}}/user/new" class="btn btn-success">Lisää käyttäjä</a>
   </p>
@@ -43,7 +36,7 @@
           </td>
           <td>{{kayttaja.lisayspvm}}</td>
           <td>
-            
+
             <a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/edit">Muokkaa</a>
             <a class="btn btn-danger btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/delete">Poista</a>
           </td>

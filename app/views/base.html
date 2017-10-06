@@ -52,6 +52,18 @@
 
     <div id="main-container">
       <!-- Dynaaminen sisältö tulee tähän -->
+      {% if success %}
+        <div class="alert alert-success">
+          <p>{{success}}</p>
+        </div>
+      {% endif %}
+
+      {% if error %}
+        <div class="alert alert-danger">
+          <p>{{error}}</p>
+        </div>
+      {% endif %}
+
       {% block content %}{% endblock %}
     </div>
 

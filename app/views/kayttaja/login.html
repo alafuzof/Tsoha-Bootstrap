@@ -2,12 +2,6 @@
 {% block content %}
   <h1>Kirjaudu sisään</h1>
 
-  {% if virhe %}
-    <div class="alert alert-danger">
-      <p>{{virhe}}</p>
-    </div>
-  {% endif %}
-
   <!-- Kaikki lomakkeen elementit form-tagin sisään -->
   <form method="post" action="{{base_path}}/login">
     <!-- Tekstikenttä käyttäjätunnukselle -->
