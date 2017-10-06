@@ -58,7 +58,7 @@
       $rows = $query->fetchAll();
       $kayttajat = array();
 
-      foreach($rows as $row){
+      foreach($rows as $row) {
         $kayttajat[] = new Kayttaja(array(
           'id' => $row['id'],
           'tunnus' => $row['tunnus'],
@@ -79,7 +79,7 @@
       $query->execute(array('id' => $id));
       $row = $query->fetch();
 
-      if($row){
+      if($row) {
         $kayttaja = new Kayttaja(array(
           'id' => $row['id'],
           'tunnus' => $row['tunnus'],
@@ -94,7 +94,7 @@
         return $kayttaja;
       }
 
-      return null;
+      return NULL;
     }
 
     public static function authenticate($tunnus, $salasana) {
