@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h1>{{kayttaja.nimi}}</h1>
+  {% if user_logged_in.oikeudet == "yllapitaja" %}
+    <a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/edit">Muokkaa</a>
+    <a class="btn btn-danger btn-sm" href="{{base_path}}/user/{{kayttaja.id}}/delete">Poista</a>
+  {% endif %}
+  <ul>
+    <li><strong>Sähköpostiosoite:</strong> {{kayttaja.email}}</li>
+    {% if user_logged_in.oikeudet == "yllapitaja" %}
+      <li><strong>Tunnus:</strong> {{kayttaja.tunnus}}</li>
+      <li><strong>Oikeudet:</strong> {{kayttaja.oikeudet}}</li>
+      <li><strong>Status:</strong> {{kayttaja.status}}</li>
+      <li><strong>Lisätty:</strong> {{kayttaja.lisayspvm}}</li>
+    {% endif %}
+  </ul>
+
+  {% if kayttaja.oikeudet != "tutkija" %}
+    <h2>Luvat</h2>
+    <ul>
+      <li>Lupa 1</li>
+      <li>Lupa 2</li>
+      <li>Lupa 3</li>
+    </ul>
+  {% endif %}
+
+  <h2>Kokeet</h2>
+  <ul>
+    <li>Koe 1</li>
+    <li>Koe 2</li>
+    <li>Koe 3</li>
+  </ul>
+
+{% endblock %}

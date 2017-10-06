@@ -2,19 +2,22 @@
 
   class KayttajaController extends BaseController {
     public static function index() {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
       $kayttajat = Kayttaja::all();
       View::make('kayttaja/index.html', array('kayttajat' => $kayttajat));
     }
 
     public static function create() {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
       View::make('kayttaja/edit.html', array('otsikko' => 'Luo uusi käyttäjä',
                                              'kohde' => 'new'));
     }
 
     public static function store() {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
 
       $params = $_POST;
 
@@ -32,7 +35,7 @@
 
       if(count($errors) == 0) {
         $kayttaja->save();
-        Redirect::to('/user', array('message' => 'Käyttäjä ' . $kayttaja->tunnus . ' on lisätty järjestelmään!'));
+        Redirect::to('/user', array('success' => 'Käyttäjä ' . $kayttaja->tunnus . ' on lisätty järjestelmään!'));
       } else {
         View::make('kayttaja/edit.html', array('otsikko' => 'Luo uusi käyttäjä',
                                                'kohde' => 'new',
@@ -41,8 +44,16 @@
       }
     }
 
+    public static function show($id) {
+      self::check_logged_in();
+
+      $kayttaja = Kayttaja::find($id);
+      View::make('kayttaja/show.html', array('kayttaja' => $kayttaja));
+    }
+
     public static function edit($id) {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
 
       $kayttaja = Kayttaja::find($id);
       View::make('kayttaja/edit.html', array('kayttaja' => $kayttaja,
@@ -51,7 +62,8 @@
     }
 
     public static function update($id) {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
 
       $params = $_POST;
 
@@ -70,7 +82,7 @@
 
       if(count($errors) == 0) {
         $kayttaja->update();
-        Redirect::to('/user', array('message' => 'Käyttäjää ' . $kayttaja->tunnus . ' muokattu!'));
+        Redirect::to('/user', array('success' => 'Käyttäjää ' . $kayttaja->tunnus . ' muokattu!'));
       } else {
         View::make('kayttaja/edit.html', array('otsikko' => 'Muokkaa käyttäjän ' . $kayttaja->tunnus . ' tietoja',
                                                'kohde' => 'edit',
@@ -80,12 +92,13 @@
     }
 
     public static function destroy($id) {
-      BaseController::enforce_login();
+      self::check_logged_in();
+      self::check_yllapitaja();
 
       $kayttaja = Kayttaja::find($id);
       $kayttaja->destroy();
 
-      Redirect::to('/user', array('message' => 'Kayttaja ' . $kayttaja->tunnus . ' on poistettu järjestelmästä!'));
+      Redirect::to('/user', array('success' => 'Kayttaja ' . $kayttaja->tunnus . ' on poistettu järjestelmästä!'));
     }
 
     public static function login() {
@@ -101,15 +114,17 @@
         View::make('/kayttaja/login.html', array('virhe' => 'Väärä käyttäjätunnus tai salasana!'));
       } else {
         $_SESSION['kayttaja'] = $kayttaja->id;
+        $_SESSION['oikeudet'] = $kayttaja->oikeudet;
 
-        Redirect::to('/', array('viesti' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
+        Redirect::to('/', array('success' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
       }
     }
 
     public static function handle_logout() {
       unset($_SESSION['kayttaja']);
+      unset($_SESSION['oikeudet']);
 
-      Redirect::to('/', array('viesti' => 'Olet kirjaunut ulos!'));
+      Redirect::to('/login', array('success' => 'Olet kirjaunut ulos!'));
     }
 
   }
