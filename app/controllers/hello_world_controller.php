@@ -50,7 +50,6 @@
 
       Kint::dump($koe);
       Kint::dump($kokeet);
-
     }
 
     public static function login(){
