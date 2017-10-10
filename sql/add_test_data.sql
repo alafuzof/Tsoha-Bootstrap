@@ -12,5 +12,5 @@ INSERT INTO Elainkoe (suorituspvm, laji, ika, lukumaara, lisatiedot, lupa_id) VA
   ('2017-09-15', 'rotta', 'Aikuinen', 3, 'Levitointi onnistunut!', (SELECT id FROM Elainkoelupa WHERE tunnus = 'ESAVI-12345'));
 
 INSERT INTO Osallistuminen (koe_id, kayttaja_id) VALUES
-  ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'bella')),
-  ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'linda'));
+  ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'tutkija')),
+  ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'lupavastaava'));
