@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if user_logged_in.id in koe.kayttajat_id or user_logged_in.oikeudet == "lupavastaava" or user_logged_in.oikeudet == 'yllapitaja' %}
+    <!--<a class="btn btn-default btn-sm" href="{{base_path}}/experiment/{{koe.id}}/edit">Muokkaa</a>
+    <a class="btn btn-danger btn-sm" href="{{base_path}}/experiment/{{koe.id}}/delete">Poista</a>-->
+  {% endif %}
+  <h1>{{koe.suorituspvm}}</h1>
+
+  <ul>
+    <li>
+      <strong>Käyttäjät:</strong>
+      {% for nimi in koe.kayttajat_nimi %}
+        <br />
+        <a href="{{base_path}}/user/{{koe.kayttajat_id[loop.index0]}}">{{nimi}}</a>
+      {% endfor %}
+    </li>
+    <li><strong>Lupa:</strong> <a href="{{base_path}}/licence/{{koe.lupa_id}}">{{koe.lupa_tunnus}}</a></li>
+    <li><strong>Eläinlaji:</strong> {{koe.laji}}</li>
+    <li><strong>Ikä:</strong> {{koe.ika}}</li>
+    <li><strong>Lukumäärä:</strong> {{koe.lukumaara}}</li>
+    <li><strong>Lisätiedot:</strong> {{koe.lisatiedot}}</li>
+  </ul>
+
+{% endblock %}

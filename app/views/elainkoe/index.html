@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Eläinkokeet</h1>
+
+  <!--
+  <p>
+    <a href="#" class="btn btn-success">Lisää koe</a>
+  </p>-->
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Päivämäärä</th>
+        <th>Käyttäjä(t)</th>
+        <th>Lupa</th>
+        <th>Eläinlaji</th>
+        <th>Ikä</th>
+        <th>Lukumäärä</th>
+        <th>Lisätiedot</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for koe in kokeet %}
+        <tr>
+          <td><a href="{{base_path}}/experiment/{{koe.id}}">{{koe.suorituspvm}}</a></td>
+          <td>
+            {% for nimi in koe.kayttajat_nimi %}
+              <a href="{{base_path}}/user/{{koe.kayttajat_id[loop.index0]}}">{{nimi}}</a>
+              <br />
+            {% endfor %}
+          </td>
+          <td><a href="{{base_path}}/licence/{{koe.lupa_id}}">{{koe.lupa_tunnus}}</a></td>
+          <td>{{koe.laji}}</td>
+          <td>{{koe.ika}}</td>
+          <td>{{koe.lukumaara}}</td>
+          <td>{{koe.lisatiedot}}</td>
+          <th>
+            <!--
+            <a class="btn btn-default btn-sm" href="#">Muokkaa</a>
+            <a class="btn btn-danger btn-sm" href="#">Poista</a>-->
+          </th>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,5 +1,6 @@
 <?php
 
+  // Oletusreitit
   $routes->get('/', function() {
     HelloWorldController::index();
   });
@@ -8,6 +9,8 @@
     HelloWorldController::sandbox();
   });
 
+
+  // Käyttäjäsivut
   $routes->get('/login', function() {
     KayttajaController::login();
   });
@@ -48,6 +51,8 @@
     KayttajaController::show($id);
   });
 
+
+  // Lupasivut
   $routes->get('/licence', function() {
     ElainkoelupaController::index();
   });
@@ -56,10 +61,12 @@
     ElainkoelupaController::show($id);
   });
 
+
+  // Koesivut
   $routes->get('/experiment', function() {
-    HelloWorldController::experiment_list();
+    ElainkoeController::index();
   });
 
-  $routes->get('/experiment/1/edit', function() {
-    HelloWorldController::experiment_edit();
+  $routes->get('/experiment/:id', function($id) {
+    ElainkoeController::show($id);
   });
