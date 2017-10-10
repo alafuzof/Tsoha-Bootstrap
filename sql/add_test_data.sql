@@ -1,6 +1,6 @@
 -- Lisää INSERT INTO lauseet tähän tiedostoon
 INSERT INTO Kayttaja (tunnus, salasana, nimi, email, oikeudet, status, lisayspvm) VALUES
-  ('ylläpitaja', 'ylläpitaja', 'Ylläpitäjä', 'yllapitaja@yliopisto.fi', 'yllapitaja', 'true', '2017-09-01'),
+  ('ylläpitäjä', 'ylläpitäjä', 'Ylläpitäjä', 'yllapitaja@yliopisto.fi', 'yllapitaja', 'true', '2017-09-01'),
   ('lupavastaava', 'lupavastaava', 'Lupavastaava', 'lupavastaava@yliopisto.fi', 'lupavastaava', 'true', '2017-09-01'),
   ('tutkija', 'tutkija', 'Tutkija', 'tutkija@yliopisto.fi', 'tutkija', 'true', '2017-09-01'),
   ('test', 'test', 'Test', 'test@yliopisto.fi', 'yllapitaja', 'true', '2017-09-01');
@@ -14,4 +14,3 @@ INSERT INTO Elainkoe (suorituspvm, laji, ika, lukumaara, lisatiedot, lupa_id) VA
 INSERT INTO Osallistuminen (koe_id, kayttaja_id) VALUES
   ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'tutkija')),
   ((SELECT id FROM Elainkoe WHERE lisatiedot = 'Levitointi onnistunut!'), (SELECT id FROM Kayttaja WHERE tunnus = 'lupavastaava'));
-validointi
