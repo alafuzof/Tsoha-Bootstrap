@@ -174,6 +174,8 @@
     }
 
     public function destroy() {
+      // FIXME poista luvat ja kokeet
+
       $query = DB::connection()->prepare(
         'DELETE FROM Kayttaja WHERE id = :id;');
       $query->execute(array('id' => $this->id));

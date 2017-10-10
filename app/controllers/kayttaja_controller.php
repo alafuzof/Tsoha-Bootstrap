@@ -49,8 +49,10 @@
 
       $kayttaja = Kayttaja::find($id);
       $luvat = Elainkoelupa::find_by_kayttaja($kayttaja);
+      $kokeet = Elainkoe::find_by_kayttaja($kayttaja);
       View::make('kayttaja/show.html', array('kayttaja' => $kayttaja,
-                                             'luvat' => $luvat));
+                                             'luvat' => $luvat,
+                                             'kokeet' => $kokeet));
     }
 
     public static function edit($id) {
