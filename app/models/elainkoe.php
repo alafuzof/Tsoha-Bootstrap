@@ -5,8 +5,11 @@
            $lupa_id, $lupa_tunnus, $kayttajat_id, $kayttajat_nimi;
 
     public function __construct($attributes) {
-      parent::__construct($attribute);
+      parent::__construct($attributes);
+      // FIXME: $this->validators = array
     }
+
+    // FIXME: validointifunktiot
 
     public static function all() {
       $query = DB::connection()->prepare(
@@ -14,14 +17,14 @@
         ' FROM Osallistuminen AS o ' .
         ' LEFT JOIN Kayttaja AS k ' .
         ' ON o.kayttaja_id = k.id;');
-      $query->exectute();
+      $query->execute();
       $rows = $query->fetchAll();
       $k_id = array();
       $k_nimi = array();
 
       foreach($rows as $row) {
         $koe_id = $row['koe_id'];
-        if(array_key_exists($koe_id, $k_id)) {
+        if(array_key_exists($koe_id, $k_id)) {
           $k_id[$koe_id][] = $row['kayttaja_id'];
           $k_nimi[$koe_id][] = $row['kayttaja_nimi'];
         } else {
@@ -44,7 +47,7 @@
           $k_id[$row['id']] = array();
           $k_nimi[$row['id']] = array();
         }
-        $kokeet[] = new Elainkoe(array(
+        $kokeet[] = new Elainkoe(array(
           'id' => $row['id'],
           'suorituspvm' => $row['suorituspvm'],
           'laji' => $row['laji'],
@@ -54,7 +57,7 @@
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
           'kayttajat_nimi' => $k_nimi[$row['id']],
-          'kayttajat_id' = > $k_id[$row['id']]
+          'kayttajat_id' => $k_id[$row['id']]
         ));
       }
 
@@ -76,9 +79,10 @@
           'SELECT o.koe_id AS koe_id, o.kayttaja_id AS kayttaja_id, k.nimi AS kayttaja_nimi ' .
           ' FROM Osallistuminen AS o ' .
           ' LEFT JOIN Kayttaja AS k ' .
-          ' WHERE e.koe_id = :id;');
+          ' ON o.kayttaja_id = k.id ' .
+          ' WHERE o.koe_id = :id;');
         $query->execute(array('id' => $row['id']));
-        $o_rows = $query->fetch();
+        $o_rows = $query->fetchAll();
         $k_id = array();
         $k_nimi = array();
         foreach($o_rows as $o_row) {
@@ -95,13 +99,18 @@
           'lisatiedot' => $row['lisatiedot'],
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
-          'kayttajat_nimi' => $k_nimi[$row['id']],
-          'kayttajat_id' = > $k_id[$row['id']]
-        ));
+          'kayttajat_nimi' => $k_nimi,
+          'kayttajat_id' => $k_id));
 
         return $koe;
       }
 
       return NULL;
     }
+
+    // FIXME: public function save() {
+
+    // FIXME: public function update() {
+
+    // FIXME public function destroy() {
   }

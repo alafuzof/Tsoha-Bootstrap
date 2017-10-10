@@ -32,11 +32,25 @@
       Kint::dump($errors);
 
       //View::make('helloworld.html');
-      $yrmi = Kayttaja::find(1);
+      $yllapitaja = Kayttaja::find(1);
       $kayttajat = Kayttaja::all();
+
+      $lupa = Elainkoelupa::find(1);
+      $luvat = Elainkoelupa::all();
+
+      $koe = Elainkoe::find(1);
+      $kokeet = Elainkoe::all();
+
       // Kint-luokan dump-metodi tulostaa muuttujan arvon
-      Kint::dump($yrmi);
+      Kint::dump($yllapitaja);
       Kint::dump($kayttajat);
+
+      Kint::dump($lupa);
+      Kint::dump($luvat);
+
+      Kint::dump($koe);
+      Kint::dump($kokeet);
+
     }
 
     public static function login(){
