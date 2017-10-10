@@ -12,7 +12,8 @@
       self::check_logged_in();
 
       $lupa = Elainkoelupa::find($id);
-      //$kokeet = Elainkoe::find_by_lupa($lupa);
-      View::make('elainkoelupa/show.html', array('lupa' => $lupa));
+      $kokeet = Elainkoe::find_by_lupa($lupa);
+      View::make('elainkoelupa/show.html', array('lupa' => $lupa,
+                                                 'kokeet' => $kokeet));
     }
   }
