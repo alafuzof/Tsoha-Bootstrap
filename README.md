@@ -1,27 +1,27 @@
 # Tietokantasovelluksen esittelysivu
 
+## Yleisesti
+
+Sovelluksen käyttö edellyttää kirjautumista. Voit kokeilla seuraavia tunnus/salasana-pareja nähdäksesi sovelluksen eri käyttäjien näkökulmasta:
+
+* tutkija / tutkija
+* lupavastaava / lupavastaava
+* ylläpitäjä / ylläpitäjä
+
 ## Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://alafuzof.users.cs.helsinki.fi/animal/)
 * [Linkki dokumentaatiooni](https://github.com/alafuzof/elainkoekirjanpito/blob/master/doc/dokumentaatio.pdf)
-
-## Suunnitellut sivut
-
-Nämä ovat staattisia mallisivuja. Loppupalautuksessa ainastaan kirjautumissivu on näkyvillä, kunnes käyttäjä on kirjautunut. Sivut on esitetty sellaisen käyttäjän näkökulmasta, jolla on oikeus selata, lisätä, muokata tai poistaa mitä tahansa tietoja.
-
-
-* [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
-* [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
-* [Muokkaa lisenssiä](https://alafuzof.users.cs.helsinki.fi/animal/licence/1/edit)
-* [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
-* [Muokaa koetta](https://alafuzof.users.cs.helsinki.fi/animal/experiment/1/edit)
 
 ## Toteutetut sivut
 
 Käyttäjäsivujen selailu on nyt esillä vain kirjautuneille käyttäjille. Voit kirjautua test/test (tunnus/salasana) testataksesi toiminnallisuutta.
 
 * [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
+* [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
 * [Tarkastele/muokkaa/lisää/poista käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
+* [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
+* [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
 
 
 ## Työn aihe
