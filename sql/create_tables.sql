@@ -4,7 +4,7 @@ CREATE TYPE elainlaji AS ENUM ('rotta', 'hiiri');
 
 CREATE TABLE Kayttaja (
   id        SERIAL PRIMARY KEY,
-  tunnus    VARCHAR(20) NOT NULL,
+  tunnus    VARCHAR(20) NOT NULL UNIQUE,
   salasana  VARCHAR(20) NOT NULL,
   nimi      VARCHAR(100) NOT NULL,
   email     VARCHAR(100) NOT NULL,
@@ -15,11 +15,11 @@ CREATE TABLE Kayttaja (
 
 CREATE TABLE Elainkoelupa (
   id           SERIAL PRIMARY KEY,
-  tunnus       VARCHAR(20) NOT NULL,
+  tunnus       VARCHAR(20) NOT NULL UNIQUE,
   nimi         VARCHAR(100) NOT NULL,
   alkupvm      DATE,
   loppupvm     DATE,
-  vastuuhlo_id INTEGER REFERENCES Kayttaja(id)
+  vastuuhlo_id INTEGER REFERENCES Kayttaja(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Elainkoe (
@@ -29,11 +29,11 @@ CREATE TABLE Elainkoe (
   ika         VARCHAR(20),
   lukumaara   INTEGER,
   lisatiedot  VARCHAR(500),
-  lupa_id     INTEGER REFERENCES Elainkoelupa(id)
+  lupa_id     INTEGER REFERENCES Elainkoelupa(id) ON DELETE CASCADE
 );
 
-CREATE TABLE Koeosallistuminen (
-  koe_id      INTEGER REFERENCES Elainkoe(id),
-  kayttaja_id INTEGER REFERENCES Kayttaja(id),
+CREATE TABLE Osallistuminen (
+  koe_id      INTEGER REFERENCES Elainkoe(id) ON DELETE CASCADE,
+  kayttaja_id INTEGER REFERENCES Kayttaja(id) ON DELETE CASCADE,
   PRIMARY KEY(koe_id, kayttaja_id)
 );
