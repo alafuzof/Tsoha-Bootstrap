@@ -61,5 +61,24 @@
       }
     }
 
+    public static function edit($id) {}
+    public static function update($id) {}
 
+    public static function destroy($id) {
+      self::check_logged_in();
+      self::check_right_to_modify($id);
+
+      $lupa = Elainkoelupa::find($id);
+      $lupa->destroy();
+
+      Redirect::to('/licence', array('success' => 'Lupa ' . $lupa->tunnus . ' on poistettu järjestelmästä!'));
+    }
+
+    private static function check_right_to_modify($id) {
+      $kayttaja = self::get_user_logged_in();
+      $lupa = Elainkoelupa::find($id);
+      if($kayttaja->id != $lupa->vastuuhlo_id && $kayttaja->oikeudet != 'yllapitaja') {
+        Redirect::to('/licence', array('error' => 'Sinulla ei ole oikeutta muokata tai poistaa lupaa ' . $lupa->tunnus . '!'));
+      }
+    }
   }

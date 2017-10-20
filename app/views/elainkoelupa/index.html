@@ -28,8 +28,10 @@
           <td>{{lupa.alkupvm}}</td>
           <td>{{lupa.loppupvm}} <label class="label label-success">Voimassa</label></td>
           <th>
-            <!--<a class="btn btn-default btn-sm" href="#">Muokkaa</a>
-            <a class="btn btn-danger btn-sm" href="#">Poista</a>-->
+            {% if user_logged_in.oikeudet == 'yllapitaja' or user_logged_in.id == lupa.vastuuhlo_id %}
+              <a class="btn btn-default btn-sm" href="{{base_path}}/licence/{{lupa.id}}/edit">Muokkaa</a>
+              <a class="btn btn-danger btn-sm" href="{{base_path}}/licence/{{lupa.id}}/delete">Poista</a>
+            {% endif %}
           </th>
         </tr>
       {% endfor %}
