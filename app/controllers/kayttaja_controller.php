@@ -155,4 +155,9 @@
       Redirect::to('/login', array('success' => 'Olet kirjaunut ulos!'));
     }
 
+    public static function home(){
+      self::check_logged_in();
+      View::make('home.html');
+    }
+
   }

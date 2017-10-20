@@ -1,15 +1,5 @@
 <?php
 
-  // Oletusreitit
-  $routes->get('/', function() {
-    HelloWorldController::index();
-  });
-
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-  });
-
-
   // Käyttäjäsivut
   $routes->get('/login', function() {
     KayttajaController::login();
@@ -21,6 +11,10 @@
 
   $routes->get('/logout', function() {
     KayttajaController::handle_logout();
+  });
+
+  $routes->get('/', function() {
+    KayttajaController::home();
   });
 
   $routes->get('/user', function() {
