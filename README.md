@@ -20,8 +20,8 @@ Käyttäjäsivujen selailu on nyt esillä vain kirjautuneille käyttäjille. Voi
 * [Kirjautuminen](https://alafuzof.users.cs.helsinki.fi/animal/login)
 * [Etusivu](https://alafuzof.users.cs.helsinki.fi/animal/)
 * [Tarkastele/muokkaa/lisää/poista käyttäjiä](https://alafuzof.users.cs.helsinki.fi/animal/user)
-* [Tarkastele lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
-* [Tarkastele kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
+* [Tarkastele/muokkaa/lisää/poista lisenssejä](https://alafuzof.users.cs.helsinki.fi/animal/licence)
+* [Tarkastele/muokkaa/lisää/poista kokeita](https://alafuzof.users.cs.helsinki.fi/animal/experiment)
 
 
 ## Työn aihe
