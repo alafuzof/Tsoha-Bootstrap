@@ -27,12 +27,11 @@
           <td>{{kayttaja.email}}</td>
           <td>{{kayttaja.oikeudet}}</td>
           <td>
-            {% if kayttaja.status %}
-              <label class="label label-success">OK
+            {% if kayttaja.status == 'true' %}
+              <a class="label label-success" href="{{base_path}}/user/{{kayttaja.id}}/toggle">OK</a>
             {% else %}
-              <label class="label label-danger">Pois käytöstä
+              <a class="label label-danger" href="{{base_path}}/user/{{kayttaja.id}}/toggle">Pois käytöstä</a>
             {% endif %}
-            </label>
           </td>
           <td>{{kayttaja.lisayspvm}}</td>
           <td>

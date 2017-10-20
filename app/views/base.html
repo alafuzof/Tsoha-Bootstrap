@@ -40,6 +40,11 @@
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}">Etusivu</a></li>
+            <li><a href="{{base_path}}/experiment">Kokeet</a></li>
+            <li><a href="{{base_path}}/licence">Luvat</a></li>
+            {% if user_logged_in.oikeudet == 'yllapitaja' %}
+              <li><a href="{{base_path}}/user">Käyttäjät</a></li>
+            {% endif %}
             {% if user_logged_in %}
               <li><a href="{{base_path}}/logout">Kirjaudu ulos ({{user_logged_in.tunnus}})</a></li>
             {% else %}

@@ -7,7 +7,7 @@
     public function __construct($attributes) {
       parent::__construct($attributes);
       $this->validators = array('validate_tunnus', 'validate_salasana', 'validate_nimi',
-                                'validate_email', 'validate_oikeudet', 'validate_status',
+                                'validate_email', 'validate_oikeudet',
                                 'validate_lisayspvm');
     }
 
@@ -41,7 +41,7 @@
 
     public function validate_status() {
       $errors = array();
-      if(filter_var($this->status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) == null) {
+      if(filter_var($this->status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) == NULL) {
         $errors[] = 'Statuksen on oltava boolean ' . $this->status;
       }
 
@@ -53,7 +53,7 @@
     }
 
     public static function all() {
-      $query = DB::connection()->prepare('SELECT * FROM Kayttaja;');
+      $query = DB::connection()->prepare('SELECT * FROM Kayttaja ORDER BY id;');
       $query->execute();
       $rows = $query->fetchAll();
       $kayttajat = array();
@@ -66,7 +66,7 @@
           'nimi' => $row['nimi'],
           'email' => $row['email'],
           'oikeudet' => $row['oikeudet'],
-          'status' => $row['status'],
+          'status' => ($row['status'] ? 'true' : 'false'),
           'lisayspvm' => $row['lisayspvm']
         ));
       }
@@ -87,7 +87,7 @@
           'nimi' => $row['nimi'],
           'email' => $row['email'],
           'oikeudet' => $row['oikeudet'],
-          'status' => $row['status'],
+          'status' => ($row['status'] ? 'true' : 'false'),
           'lisayspvm' => $row['lisayspvm']
         ));
 
@@ -111,12 +111,35 @@
           'nimi' => $row['nimi'],
           'email' => $row['email'],
           'oikeudet' => $row['oikeudet'],
-          'status' => $row['status'],
+          'status' => ($row['status'] ? 'true' : 'false'),
           'lisayspvm' => $row['lisayspvm']
         ));
       }
 
       return $kayttajat;
+    }
+
+    public static function find_by_tunnus($tunnus) {
+      $query = DB::connection()->prepare('SELECT * FROM Kayttaja AS k WHERE k.tunnus = :tunnus;');
+      $query->execute(array('tunnus' => $tunnus));
+      $row = $query->fetch();
+
+      if($row) {
+        $kayttaja = new Kayttaja(array(
+          'id' => $row['id'],
+          'tunnus' => $row['tunnus'],
+          'salasana' => $row['salasana'],
+          'nimi' => $row['nimi'],
+          'email' => $row['email'],
+          'oikeudet' => $row['oikeudet'],
+          'status' => ($row['status'] ? 'true' : 'false'),
+          'lisayspvm' => $row['lisayspvm']
+        ));
+
+        return $kayttaja;
+      }
+
+      return NULL;
     }
 
     public static function authenticate($tunnus, $salasana) {
@@ -133,7 +156,7 @@
           'nimi' => $row['nimi'],
           'email' => $row['email'],
           'oikeudet' => $row['oikeudet'],
-          'status' => $row['status'],
+          'status' => ($row['status'] ? 'true' : 'false'),
           'lisayspvm' => $row['lisayspvm']
         ));
 
@@ -174,11 +197,18 @@
     }
 
     public function destroy() {
-      // FIXME poista luvat ja kokeet
-
       $query = DB::connection()->prepare(
         'DELETE FROM Kayttaja WHERE id = :id;');
       $query->execute(array('id' => $this->id));
+    }
+
+    public function toggle_status() {
+      $query = DB::connection()->prepare(
+        'UPDATE Kayttaja SET status = :status WHERE id = :id;');
+      $new_value = ($this->status == 'true' ? 'false' : 'true');
+      $query->execute(array('id' => $this->id,
+                            'status' => $new_value));
+      $this->status = $new_value;
     }
 
   }

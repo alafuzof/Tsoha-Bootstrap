@@ -45,6 +45,14 @@
     KayttajaController::update($id);
   });
 
+  $routes->get('/user/:id/delete', function($id) {
+    KayttajaController::destroy($id);
+  });
+
+  $routes->get('/user/:id/toggle', function($id) {
+    KayttajaController::toggle_status($id);
+  });
+
 
   // Lupasivut
   $routes->get('/licence', function() {

@@ -19,10 +19,6 @@
   {% endif %}
     <input type="hidden" name="id" value="{{kayttaja.id}}" />
     <div class="form-group">
-      <label>Aktiivinen</label>
-      <input class="form-control" name="status" value="1" type="checkbox" checked />
-    </div>
-    <div class="form-group">
       <label>Tunnus</label>
       <input class="form-control" name="tunnus" value="{{kayttaja.tunnus}}" type="text" />
     </div>
@@ -46,6 +42,16 @@
         <option value="yllapitaja">Ylläpitäjä</option>
       </select>
     </div>
+
+    <div class="form-group">
+      <label>Aktiivinen</label>
+      {% if kayttaja.status == 'true' %}
+        <input class="form-control" name="status" value="1" type="checkbox" checked />
+      {% else %}
+        <input class="form-control" name="status" value="1" type="checkbox" />
+      {% endif %}
+    </div>
+
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

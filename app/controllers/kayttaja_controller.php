@@ -21,6 +21,7 @@
 
       $params = $_POST;
 
+
       $status = TRUE; //array_key_exists('status', $params); FIXME
 
       $kayttaja = new Kayttaja(array(
@@ -32,6 +33,10 @@
         'status' => $status,
         'lisayspvm' => date('Y-m-d')));
       $errors = $kayttaja->errors();
+
+      if(Kayttaja::find_by_tunnus($kayttaja->tunnus) != NULL) {
+        $errors[] = 'Tunnus ' . $kayttaja->tunnus . ' on jo käytössä!';
+      }
 
       if(count($errors) == 0) {
         $kayttaja->save();
@@ -71,7 +76,11 @@
 
       $params = $_POST;
 
-      $status = TRUE;//array_key_exists('status', $params); FIXME
+      if(array_key_exists('status', $params)) {
+        $params['status'] = 'true';
+      } else {
+        $params['status'] = 'false';
+      }
 
       $kayttaja = new Kayttaja(array(
         'id' => $params['id'],
@@ -80,9 +89,14 @@
         'nimi' => $params['nimi'],
         'email' => $params['email'],
         'oikeudet' => $params['oikeudet'],
-        'status' => $status,
+        'status' => $params['status'],
         'lisayspvm' => date('Y-m-d'))); // Tätä ei oikeasti käytetä
       $errors = $kayttaja->errors();
+
+      $tmp = Kayttaja::find_by_tunnus($kayttaja->tunnus);
+      if($tmp != NULL && $kayttaja->id != $tmp->id) {
+        $errors[] = 'Tunnus ' . $kayttaja->tunnus . ' on jo käytössä!';
+      }
 
       if(count($errors) == 0) {
         $kayttaja->update();
@@ -93,6 +107,16 @@
                                                'kayttaja' => $kayttaja,
                                                'virheet' => $errors));
       }
+    }
+
+    public static function toggle_status($id) {
+      self::check_logged_in();
+      self::check_yllapitaja();
+
+      $kayttaja = Kayttaja::find($id);
+      $kayttaja->toggle_status();
+
+      Redirect::to('/user', array('success' => 'Kayttajan ' . $kayttaja->tunnus . ' status muutettu!'));
     }
 
     public static function destroy($id) {
@@ -114,8 +138,8 @@
 
       $kayttaja = Kayttaja::authenticate($params['tunnus'], $params['salasana']);
 
-      if(!$kayttaja) {
-        View::make('/kayttaja/login.html', array('virhe' => 'Väärä käyttäjätunnus tai salasana!'));
+      if($kayttaja == NULL || $kayttaja->status == FALSE) {
+        View::make('/kayttaja/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!'));
       } else {
         $_SESSION['kayttaja'] = $kayttaja->id;
         $_SESSION['oikeudet'] = $kayttaja->oikeudet;
