@@ -174,8 +174,8 @@
 
     public function update() {
       $query = DB::connection()->prepare(
-        'UPDATE Kayttaja SET ' .
-        '  tunnus = :tunnus, nimi = :nimi, alkupvm = :alkupvm ' .
+        'UPDATE Elainkoelupa SET ' .
+        '  tunnus = :tunnus, nimi = :nimi, alkupvm = :alkupvm, ' .
         '  loppupvm = :loppupvm, vastuuhlo_id = :vastuuhlo_id ' .
         '  WHERE id = :id;');
       $query->execute(array('tunnus' => $this->tunnus,

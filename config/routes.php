@@ -64,12 +64,12 @@
     ElainkoelupaController::show($id);
   });
 
-  /*$routes->get('/licence/:id/edit', function($id) {
+  $routes->get('/licence/:id/edit', function($id) {
     ElainkoelupaController::edit($id);
   });
   $routes->post('/licence/:id/edit', function($id) {
     ElainkoelupaController::update($id);
-  });*/
+  });
 
   $routes->get('/licence/:id/delete', function($id) {
     ElainkoelupaController::destroy($id);

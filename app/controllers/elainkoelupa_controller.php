@@ -61,8 +61,57 @@
       }
     }
 
-    public static function edit($id) {}
-    public static function update($id) {}
+    public static function edit($id) {
+      self::check_logged_in();
+      self::check_right_to_modify($id);
+
+      $lupa = Elainkoelupa::find($id);
+      $lupavastaavat = array_merge(Kayttaja::find_by_oikeudet('lupavastaava'),
+                                   Kayttaja::find_by_oikeudet('yllapitaja'));
+      View::make('elainkoelupa/edit.html', array('otsikko' => 'Muokkaa luvan ' . $lupa->tunnus . ' tietoja',
+                                                 'kohde' => 'edit',
+                                                 'lupavastaavat' => $lupavastaavat,
+                                                 'lupa' => $lupa));
+    }
+
+    public static function update($id) {
+      self::check_logged_in();
+      self::check_right_to_modify($id);
+
+      $params = $_POST;
+
+      $params['vastuuhlo_nimi'] = Kayttaja::find($params['vastuuhlo_id'])->nimi;
+
+      $lupa = new Elainkoelupa(array(
+        'id'             => $params['id'],
+        'tunnus'         => $params['tunnus'],
+        'nimi'           => $params['nimi'],
+        'vastuuhlo_id'   => $params['vastuuhlo_id'],
+        'vastuuhlo_nimi' => $params['vastuuhlo_nimi'],
+        'alkupvm'        => $params['alkupvm'],
+        'loppupvm'       => $params['loppupvm']));
+
+      $errors = $lupa->errors();
+      $tmp = Elainkoelupa::find_by_tunnus($lupa->tunnus);
+      if($tmp != NULL && $lupa->id != $tmp->id) {
+        $errors[] = 'Tunnus ' . $lupa->tunnus . ' on jo käytössä!';
+      }
+
+      if(count($errors) == 0) {
+        $lupa->update();
+        Redirect::to('/licence', array('success' => 'Lupaa ' . $lupa->tunnus . ' muokattu!'));
+      } else {
+        $lupavastaavat = array_merge(Kayttaja::find_by_oikeudet('lupavastaava'),
+                                     Kayttaja::find_by_oikeudet('yllapitaja'));
+        View::make('elainkoelupa/edit.html', array('otsikko' => 'Muokkaa luvan ' . $lupa->tunnus . ' tietoja',
+                                                   'kohde' => 'edit',
+                                                   'lupavastaavat' => $lupavastaavat,
+                                                   'lupa' => $lupa,
+                                                   'errors' => $errors));
+      }
+
+
+    }
 
     public static function destroy($id) {
       self::check_logged_in();
