@@ -187,8 +187,6 @@
     }
 
     public function destroy() {
-      // FIXME poista kokeet
-
       $query = DB::connection()->prepare(
         'DELETE FROM Elainkoelupa WHERE id = :id;');
       $query->execute(array('id' => $this->id));

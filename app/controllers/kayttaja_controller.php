@@ -21,8 +21,11 @@
 
       $params = $_POST;
 
-
-      $status = TRUE; //array_key_exists('status', $params); FIXME
+      if(array_key_exists('status', $params)) {
+        $params['status'] = 'true';
+      } else {
+        $params['status'] = 'false';
+      }
 
       $kayttaja = new Kayttaja(array(
         'tunnus' => $params['tunnus'],
