@@ -6,10 +6,51 @@
 
     public function __construct($attributes) {
       parent::__construct($attributes);
-      // FIXME: $this->validators = array
+      $this->validators = array('validate_suorituspvm', 'validate_laji', 'validate_ika',
+                                'validate_lukumaara', 'validate_lisatiedot', 'validate_lupa_id',
+                                'validate_kayttajat_id');
     }
 
-    // FIXME: validointifunktiot
+    public function validate_suorituspvm() {
+      return $this->validate_date($this->suorituspvm, 'Y-m-d', 'Suorituspäivämäärä');
+    }
+
+    public function validate_laji() {
+      return $this->validate_in_set($this->laji, array('rotta', 'hiiri'), 'Laji');
+    }
+
+    public function validate_ika() {
+      return $this->validate_string_length($this->ika, 1, 20, 'Ikä');
+    }
+
+    public function validate_lukumaara() {
+      return $this->validate_integer_value($this->lukumaara, 1, NULL, 'Lukumäärä');
+    }
+
+    public function validate_lisatiedot() {
+      return $this->validate_string_length($this->lisatiedot, 0, 500, 'Lisätiedot');
+    }
+
+    public function validate_lupa_id() {
+      $errors = array();
+      $lupa = Elainkoelupa::find($this->lupa_id);
+      if($lupa == NULL) {
+        $errors[] = 'Annettua lupaa ei löydy järjestelmästä';
+      }
+      return $errors;
+    }
+
+    public function validate_kayttajat_id() {
+      $errors = array();
+      foreach($this->kayttajat_id as $kayttaja_id) {
+        $kayttaja = Kayttaja::find($kayttaja_id);
+        if($kayttaja == NULL) {
+          $errors[] = 'Yhtä tai useampaa valittua käyttäjää ei löydy järjestelmästä';
+          break;
+        }
+      }
+      return $errors;
+    }
 
     public static function all() {
       $query = DB::connection()->prepare(
@@ -218,9 +259,61 @@
       return $kokeet;
     }
 
-    // FIXME: public function save() {
+    public function save() {
+      $query = DB::connection()->prepare(
+        'INSERT INTO Elainkoe (suorituspvm, laji, ika, lukumaara, lisatiedot, lupa_id) VALUES ' .
+        '  (:suorituspvm, :laji, :ika, :lukumaara, :lisatiedot, :lupa_id) RETURNING id;');
+      $query->execute(array('suorituspvm' => $this->suorituspvm,
+                            'laji' => $this->laji,
+                            'ika' => $this->ika,
+                            'lukumaara' => $this->lukumaara,
+                            'lisatiedot' => $this->lisatiedot,
+                            'lupa_id' => $this->lupa_id));
+      $row = $query->fetch();
+      $this->id = $row['id'];
 
-    // FIXME: public function update() {
+      foreach($this->kayttajat_id as $kayttaja_id) {
+        $query = DB::connection()->prepare(
+          'INSERT INTO Osallistuminen (koe_id, kayttaja_id) VALUES ' .
+          '(:koe_id, :kayttaja_id);');
+        $query->execute(array('koe_id' => $this->id,
+                              'kayttaja_id' => $kayttaja_id));
+      }
+    }
 
-    // FIXME public function destroy() {
+    public function update() {
+      $query = DB::connection()->prepare(
+        'UPDATE Elainkoe SET ' .
+        '  suorituspvm = :suorituspvm, laji = :laji, ika = :ika, ' .
+        '  lukumaara = :lukumaara, lisatiedot = :lisatiedot, ' .
+        '  lupa_id = :lupa_id ' .
+        '  WHERE id = :id;');
+      $query->execute(array('suorituspvm' => $this->suorituspvm,
+                            'laji'        => $this->laji,
+                            'ika'         => $this->ika,
+                            'lukumaara'   => $this->lukumaara,
+                            'lisatiedot'  => $this->lisatiedot,
+                            'lupa_id'     => $this->lupa_id,
+                            'id'          => $this->id));
+
+      // Poistetaan vanhat osallistumistiedot
+      $query = DB::connection()->prepare(
+        'DELETE FROM Osallistuminen WHERE koe_id = :koe_id;');
+      $query->execute(array('koe_id' => $this->id));
+
+      // Lisätään osallistumistiedot takaisin
+      foreach($this->kayttajat_id as $kayttaja_id) {
+        $query = DB::connection()->prepare(
+          'INSERT INTO Osallistuminen (koe_id, kayttaja_id) VALUES ' .
+          '(:koe_id, :kayttaja_id);');
+        $query->execute(array('koe_id' => $this->id,
+                              'kayttaja_id' => $kayttaja_id));
+      }
+    }
+
+    public function destroy() {
+      $query = DB::connection()->prepare(
+        'DELETE FROM Elainkoe WHERE id = :id;');
+      $query->execute(array('id' => $this->id));
+    }
   }

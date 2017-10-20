@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{otsikko}}</h1>
+
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if kohde == 'new' %}
+    <form method="post" action="{{base_path}}/experiment/new">
+  {% else %}
+    <form method="post" action="{{base_path}}/experiment/{{koe.id}}/edit">
+  {% endif %}
+
+    <input type="hidden" name="id" value="{{koe.id}}" />
+
+    <div class="form-group">
+      <label>Suorituspäivämäärä</label>
+      <input class="form-control" name="suorituspvm" value="{{koe.suorituspvm}}" type="date" />
+    </div>
+
+    <div class="form-group">
+      <label for="species">Laji</label>
+      <select class="form-control" name="laji" id="species">
+        <option value="rotta">Rotta</option>
+        <option value="hiiri">Hiiri</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Ikä</label>
+      <input class="form-control" name="ika" value="{{koe.ika}}" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label>Lukumäärä</label>
+      <input class="form-control" name="lukumaara" value="{{koe.lukumaara}}" type="number" />
+    </div>
+
+    <div class="form-group">
+      <label for="licence">Eläinkoelupa</label>
+      <select class="form-control" name="lupa_id" id="licence" required>
+        {% for lupa in luvat %}
+          <option value="{{lupa.id}}">{{lupa.tunnus}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="users">Osallistujat</label>
+      <select class="form-control" name="kayttajat_id[]" id="users" multiple required>
+        {% for kayttaja in kayttajat %}
+          {% if user_logged_in.id == kayttaja.id %}
+            <option value="{{kayttaja.id}}" selected>{{kayttaja.nimi}}</option>
+          {% else %}
+            <option value="{{kayttaja.id}}">{{kayttaja.nimi}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="info">Lisätiedot</label>
+      <textarea class="form-control" name="lisatiedot" id="info">{{koe.lisatiedot}}</textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

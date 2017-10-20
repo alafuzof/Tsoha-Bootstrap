@@ -109,8 +109,6 @@
                                                    'lupa' => $lupa,
                                                    'errors' => $errors));
       }
-
-
     }
 
     public static function destroy($id) {

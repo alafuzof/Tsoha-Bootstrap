@@ -34,17 +34,15 @@
     KayttajaController::store();
   });
 
+  $routes->get('/user/:id', function($id) {
+    KayttajaController::show($id);
+  });
+
   $routes->get('/user/:id/edit', function($id) {
     KayttajaController::edit($id);
   });
   $routes->post('/user/:id/edit', function($id) {
     KayttajaController::update($id);
-  });
-
-
-
-  $routes->get('/user/:id', function($id) {
-    KayttajaController::show($id);
   });
 
 
@@ -80,6 +78,13 @@
   // Koesivut
   $routes->get('/experiment', function() {
     ElainkoeController::index();
+  });
+
+  $routes->get('/experiment/new', function() {
+    ElainkoeController::create();
+  });
+  $routes->post('/experiment/new', function() {
+    ElainkoeController::store();
   });
 
   $routes->get('/experiment/:id', function($id) {

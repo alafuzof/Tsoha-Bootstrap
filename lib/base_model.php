@@ -27,28 +27,46 @@
       return $errors;
     }
 
-    public function validate_string_length($string, $min_length=null, $max_length=null, $target=null) {
+    public static function validate_integer_value($value, $min_value=NULL, $max_value=NULL, $target='Muuttuja') {
       $errors = array();
-      if($target == null) {
-        $target = 'Merkkijono';
+      if(!is_int($value)) {
+        $errors[] = $target . ' täytyy olla kokonaisluku';
       }
-      if($string == '' || $string == null) {
-        $errors[] = $target . ' ei voi olla tyhjä';
+      if($min_value != NULL && $value < $min_value) {
+        $errors[] = $target . ' täytyy olla vähintään ' . $min_value;
       }
-      if($min_length != null && strlen($string)<$min_length) {
+      if($max_value != NULL && $value > $max_value) {
+        $errors[] = $target . ' täytyy olla korkeintaan ' . $max_value;
+      }
+
+      return $errors;
+    }
+
+    public static function validate_string_length($string, $min_length=NULL, $max_length=NULL, $target='Muuttuja') {
+      $errors = array();
+      if($min_length != NULL && strlen($string)<$min_length) {
         $errors[] = $target . ' on liian lyhyt (min. ' . $min_length . ' merkkiä)';
       }
-      if($max_length != null && strlen($string)>$max_length) {
+      if($max_length != NULL && strlen($string)>$max_length) {
         $errors[] = $target . ' on liian pitkä (max. ' . $max_length . ' merkkiä)';
       }
 
       return $errors;
     }
 
-    function validate_date($date, $format='Y-m-d', $id='Päivämäärä') {
+    public static function validate_date($date, $format='Y-m-d', $id='Päivämäärä') {
       $errors = array();
       if($date != date($format, strtotime($date))) {
         $errors[] = $id . ' pitää antaa muodossa ' . $format;
+      }
+
+      return $errors;
+    }
+
+    public static function validate_in_set($value, $set, $id='Muuttujan') {
+      $errors = array();
+      if(!in_array($value, $set)) {
+        $errors[] = $id . ' pitää olla joukossa [' . implode($set, ', ') . ']';
       }
 
       return $errors;
