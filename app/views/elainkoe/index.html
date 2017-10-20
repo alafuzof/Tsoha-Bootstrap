@@ -36,9 +36,10 @@
           <td>{{koe.lukumaara}}</td>
           <td>{{koe.lisatiedot}}</td>
           <th>
-            <!--
-            <a class="btn btn-default btn-sm" href="#">Muokkaa</a>
-            <a class="btn btn-danger btn-sm" href="#">Poista</a>-->
+            {% if user_logged_in.id in koe.kayttajat_id or user_logged_in.id == koe.lupa_vastuuhlo_id or user_logged_in.oikeudet == 'yllapitaja' %}
+              <a class="btn btn-default btn-sm" href="{{base_path}}/experiment/{{koe.id}}/edit">Muokkaa</a>
+              <a class="btn btn-danger btn-sm" href="{{base_path}}/experiment/{{koe.id}}/delete">Poista</a>
+            {% endif %}
           </th>
         </tr>
       {% endfor %}

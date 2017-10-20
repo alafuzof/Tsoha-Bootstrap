@@ -90,3 +90,14 @@
   $routes->get('/experiment/:id', function($id) {
     ElainkoeController::show($id);
   });
+
+  $routes->get('/experiment/:id/edit', function($id) {
+    ElainkoeController::edit($id);
+  });
+  $routes->post('/experiment/:id/edit', function($id) {
+    ElainkoeController::update($id);
+  });
+
+  $routes->get('/experiment/:id/delete', function($id) {
+    ElainkoeController::destroy($id);
+  });

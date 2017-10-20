@@ -80,14 +80,13 @@
 
       $params = $_POST;
 
-      $params['vastuuhlo_nimi'] = Kayttaja::find($params['vastuuhlo_id'])->nimi;
+      // FIXME poista $params['vastuuhlo_nimi'] = Kayttaja::find($params['vastuuhlo_id'])->nimi;
 
       $lupa = new Elainkoelupa(array(
         'id'             => $params['id'],
         'tunnus'         => $params['tunnus'],
         'nimi'           => $params['nimi'],
         'vastuuhlo_id'   => $params['vastuuhlo_id'],
-        'vastuuhlo_nimi' => $params['vastuuhlo_nimi'],
         'alkupvm'        => $params['alkupvm'],
         'loppupvm'       => $params['loppupvm']));
 

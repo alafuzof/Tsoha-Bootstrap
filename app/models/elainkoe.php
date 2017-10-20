@@ -2,7 +2,7 @@
 
   class Elainkoe extends BaseModel {
     public $id, $suorituspvm, $laji, $ika, $lukumaara, $lisatiedot,
-           $lupa_id, $lupa_tunnus, $kayttajat_id, $kayttajat_nimi;
+           $lupa_id, $lupa_tunnus, $kayttajat_id, $kayttajat_nimi, $lupa_vastuuhlo_id;
 
     public function __construct($attributes) {
       parent::__construct($attributes);
@@ -75,7 +75,7 @@
       }
 
       $query = DB::connection()->prepare(
-        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus '.
+        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus, l.vastuuhlo_id AS lupa_vastuuhlo_id '.
         ' FROM Elainkoe AS e ' .
         ' LEFT JOIN Elainkoelupa AS l ' .
         ' ON e.lupa_id = l.id;');
@@ -97,6 +97,7 @@
           'lisatiedot' => $row['lisatiedot'],
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
+          'lupa_vastuuhlo_id' => $row['lupa_vastuuhlo_id'],
           'kayttajat_nimi' => $k_nimi[$row['id']],
           'kayttajat_id' => $k_id[$row['id']]
         ));
@@ -107,7 +108,7 @@
 
     public static function find($id) {
       $query = DB::connection()->prepare(
-        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus '.
+        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus, l.vastuuhlo_id AS lupa_vastuuhlo_id '.
         ' FROM Elainkoe AS e ' .
         ' LEFT JOIN Elainkoelupa AS l ' .
         ' ON e.lupa_id = l.id '.
@@ -140,6 +141,7 @@
           'lisatiedot' => $row['lisatiedot'],
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
+          'lupa_vastuuhlo_id' => $row['lupa_vastuuhlo_id'],
           'kayttajat_nimi' => $k_nimi,
           'kayttajat_id' => $k_id));
 
@@ -172,7 +174,7 @@
       }
 
       $query = DB::connection()->prepare(
-        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus '.
+        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus, l.vastuuhlo_id AS lupa_vastuuhlo_id '.
         ' FROM Elainkoe AS e ' .
         ' LEFT JOIN Elainkoelupa AS l ' .
         ' ON e.lupa_id = l.id ' .
@@ -196,6 +198,7 @@
           'lisatiedot' => $row['lisatiedot'],
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
+          'lupa_vastuuhlo_id' => $row['lupa_vastuuhlo_id'],
           'kayttajat_nimi' => $k_nimi[$row['id']],
           'kayttajat_id' => $k_id[$row['id']]
         ));
@@ -227,7 +230,7 @@
       }
 
       $query = DB::connection()->prepare(
-        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus '.
+        'SELECT e.id AS id, e.suorituspvm AS suorituspvm, e.laji AS laji, e.ika AS ika, e.lukumaara AS lukumaara, e.lisatiedot AS lisatiedot, e.lupa_id AS lupa_id, l.tunnus AS lupa_tunnus, l.vastuuhlo_id AS lupa_vastuuhlo_id '.
         ' FROM Elainkoe AS e ' .
         ' LEFT JOIN Elainkoelupa AS l ' .
         ' ON e.lupa_id = l.id ' .
@@ -251,6 +254,7 @@
           'lisatiedot' => $row['lisatiedot'],
           'lupa_id' => $row['lupa_id'],
           'lupa_tunnus' => $row['lupa_tunnus'],
+          'lupa_vastuuhlo_id' => $row['lupa_vastuuhlo_id'],
           'kayttajat_nimi' => $k_nimi[$row['id']],
           'kayttajat_id' => $k_id[$row['id']]
         ));
