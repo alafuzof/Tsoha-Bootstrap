@@ -45,10 +45,10 @@
       return $errors;
     }
 
-    function validate_date($date, $format= 'Y-m-d') {
+    function validate_date($date, $format='Y-m-d', $id='Päivämäärä') {
       $errors = array();
       if($date != date($format, strtotime($date))) {
-        $errors[] = 'Päivämäärä on väärin muotoiltu';
+        $errors[] = $id . ' pitää antaa muodossa ' . $format;
       }
 
       return $errors;

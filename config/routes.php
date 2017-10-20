@@ -30,7 +30,6 @@
   $routes->get('/user/new', function() {
     KayttajaController::create();
   });
-
   $routes->post('/user/new', function() {
     KayttajaController::store();
   });
@@ -38,7 +37,6 @@
   $routes->get('/user/:id/edit', function($id) {
     KayttajaController::edit($id);
   });
-
   $routes->post('/user/:id/edit', function($id) {
     KayttajaController::update($id);
   });
@@ -57,9 +55,18 @@
     ElainkoelupaController::index();
   });
 
+  $routes->get('/licence/new', function() {
+    ElainkoelupaController::create();
+  });
+  $routes->post('/licence/new', function() {
+    ElainkoelupaController::store();
+  });
+
   $routes->get('/licence/:id', function($id) {
     ElainkoelupaController::show($id);
   });
+
+
 
 
   // Koesivut

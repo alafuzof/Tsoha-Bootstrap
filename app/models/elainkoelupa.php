@@ -6,7 +6,7 @@
     public function __construct($attributes) {
       parent::__construct($attributes);
       $this->validators = array('validate_tunnus', 'validate_nimi', 'validate_vastuuhlo_id',
-                                'validate_alkupvm', 'validate_loppupvm');
+                                'validate_alkupvm', 'validate_loppupvm', 'validate_aikaero');
     }
 
     public function validate_tunnus() {
@@ -29,11 +29,20 @@
     }
 
     public function validate_alkupvm() {
-      return $this->validate_date($this->alkupvm);
+      return $this->validate_date($this->alkupvm, 'Y-m-d', 'Alkupäivämäärä');
     }
 
     public function validate_loppupvm() {
-      return $this->validate_date($this->loppupvm);
+      return $this->validate_date($this->loppupvm, 'Y-m-d', 'Loppupäivämäärä');
+    }
+
+    public function validate_aikaero() {
+      $errors = array();
+      if($this->alkupvm > $this->loppupvm) {
+        $errors[] = 'Alkupäivämäärän on oltava ennen loppupäivämäärää';
+      }
+
+      return $errors;
     }
 
     public static function all() {
@@ -119,6 +128,35 @@
       }
 
       return $luvat;
+    }
+
+    public static function find_by_tunnus($tunnus) {
+      $query = DB::connection()->prepare(
+        'SELECT l.id AS id, l.tunnus AS tunnus, l.nimi AS nimi, ' .
+        '       l.alkupvm AS alkupvm, l.loppupvm AS loppupvm, ' .
+        '       l.vastuuhlo_id AS vastuuhlo_id, k.nimi AS vastuuhlo_nimi ' .
+        'FROM Elainkoelupa AS l ' .
+        'LEFT JOIN Kayttaja AS k ' .
+        'ON l.vastuuhlo_id = k.id ' .
+        'WHERE l.tunnus = :tunnus;');
+      $query->execute(array('tunnus' => $tunnus));
+      $row = $query->fetch();
+
+      if($row) {
+        $lupa = new Elainkoelupa(array(
+          'id' => $row['id'],
+          'tunnus' => $row['tunnus'],
+          'nimi' => $row['nimi'],
+          'alkupvm' => $row['alkupvm'],
+          'loppupvm' => $row['loppupvm'],
+          'vastuuhlo_id' => $row['vastuuhlo_id'],
+          'vastuuhlo_nimi' => $row['vastuuhlo_nimi']
+        ));
+
+        return $lupa;
+      }
+
+      return NULL;
     }
 
     public function save() {
